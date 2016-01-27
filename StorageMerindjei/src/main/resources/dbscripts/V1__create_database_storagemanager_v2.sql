@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS Delivery (
 CREATE TABLE IF NOT EXISTS Delivery_Entity (
 	delivery_entity_id INT NOT NULL AUTO_INCREMENT,
 	delivery_id INT NOT NULL,
-	material_id INT NOT NULL,
+	material_id INT NOT NULL,	
+	quantity DECIMAL(12, 3) NOT NULL,
 	material_form VARCHAR(50),
 	type VARCHAR(100),
 	color VARCHAR(30),
@@ -53,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Delivery_Entity (
 CREATE TABLE IF NOT EXISTS Used_Material (
 	id INT NOT NULL AUTO_INCREMENT,
 	material_id INT NOT NULL,
-	quantity INT NOT NULL,
+	quantity DECIMAL(12, 3) NOT NULL,
 	usage_date DATETIME NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT `fk_usedmaterial_material`

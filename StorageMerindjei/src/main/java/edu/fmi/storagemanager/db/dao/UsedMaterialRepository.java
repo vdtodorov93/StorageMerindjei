@@ -11,4 +11,7 @@ import edu.fmi.storagemanager.db.model.UsedMaterial;
 public interface UsedMaterialRepository extends CrudRepository<UsedMaterial, Long> {
 	@Query("SELECT um FROM UsedMaterial um where um.material.name = :name")
 	List<UsedMaterial> findByMaterialName(@Param("name") String name);
+	
+	@Query("SELECT SUM(um.quantity) FROM UsedMaterial um where um.material.name = :name")
+	int usedAmountByName(@Param("name") String name);
 }

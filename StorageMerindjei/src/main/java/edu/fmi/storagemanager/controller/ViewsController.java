@@ -21,7 +21,7 @@ import edu.fmi.storagemanager.db.model.UsedMaterial;
 import edu.fmi.storagemanager.db.model.Vendor;
 
 @Controller
-public class HomeController {
+public class ViewsController {
 
 	@Autowired
 	MaterialRepository materialRepository;
@@ -45,6 +45,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(Model model) {
+		System.out.println(usedMaterialRepository.usedAmountByName("Prezervativi"));
 		List<UsedMaterial> um = usedMaterialRepository.findByMaterialName("Prezervativi");
 		System.out.println("INDEX");
 		Material material = materialRepository.findByName("Prezervativi");

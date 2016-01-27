@@ -1,0 +1,50 @@
+----- MATERIALS------
+# /api/materials GET
+# /api/materials/{name} GET  -- find material by name
+# "/api/materials" POST
+{
+	"name":"laptop"
+}
+
+
+----- VENDORS------
+# /api/vendors POST
+{
+  "name":"Malii",
+  "address":"vladislavovo",
+  "phoneNumber":"082312323",
+  "bankAccount":"BG1231231"
+}
+
+# /api/vendors/ GET 
+# /api/vendors/{name} GET   - get vendor by name
+
+----- DELIVERIES------
+# /api/deliveries/{vendorname} GET - returns all deliveries from given vendor
+# /api/deliveries/
+{
+  "vendor":"Durex",
+  "deliveryEntities":[
+    {
+      "material":"foil",
+      "quantity":3.0,
+      "materialForm":"liquid",
+      "type":"cool",
+      "color":"red",
+      "price":24.06,
+      "size":12.3,
+      "sizeMetric":"cm"
+  	},
+  	{
+      "material":"Mouse",
+      "quantity":2,
+      "materialForm":"hard",
+      "type":"laser",
+      "color":"black",
+      "price":69.99,
+      "size":7.8,
+      "sizeMetric":"cm"
+  	}
+  	]
+  }
+}

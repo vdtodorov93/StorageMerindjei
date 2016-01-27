@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,17 +18,17 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Used_Material")
 public class UsedMaterial {
-	
+
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "material_id", nullable = false)
+	@JoinColumn(name = "material_id", nullable = false)
 	private Material material;
-	
-	@Column(name="quantity")
+
+	@Column(name = "quantity")
 	private BigDecimal quantity;
 
 	@Temporal(TemporalType.DATE)
@@ -64,6 +65,13 @@ public class UsedMaterial {
 
 	public void setUsageDate(Date usageDate) {
 		this.usageDate = usageDate;
+	}
+
+	@PrePersist
+	private void setUsageDate() {
+		if (usageDate == null) {
+			usageDate = new Date();
+		}
 	}
 
 	@Override

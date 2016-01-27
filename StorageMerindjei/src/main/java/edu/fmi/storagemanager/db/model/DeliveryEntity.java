@@ -28,6 +28,9 @@ public class DeliveryEntity {
     @JoinColumn(name = "material_id", nullable = false)
 	private Material material;
 	
+	@Column(name="quantity", nullable = false)
+	private BigDecimal quantity;
+	
 	@Column(name="material_form", length = 50)
 	private String materialForm;
 	
@@ -116,6 +119,14 @@ public class DeliveryEntity {
 
 	public void setSizeMetric(String sizeMetric) {
 		this.sizeMetric = sizeMetric;
+	}
+
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override
