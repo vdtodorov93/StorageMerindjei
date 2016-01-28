@@ -42,48 +42,54 @@
 		</nav>
 		<div class="row">
 			<div class="column">
-				<div class="col-sm-5">
+				<div id="newdelivery" class="col-sm-5">
+
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>New Delivery</legend>
 							<div class="form-group">
-								<label class="col-lg-2 control-label" for="material">Material</label>
-								<div class="col-lg-10">
-									<select class="form-control" id="material"
-										placeholder="Material" ng-model="$scope.selectedMaterial"
-										ng-options="m as m.name for m in materials"></select>
-								</div>
-								<label class="col-lg-2 control-label" for="typematerial">Type</label>
-								<div class="col-lg-10">
-									<input class="form-control" id="typematerial" type="text"
-										placeholder="Type">
-								</div>
-								<label class="col-lg-2 control-label" for="color">Color</label>
-								<div class="col-lg-10">
-									<input class="form-control" id="color" type="text"
-										placeholder="Color">
-								</div>
-								<label class="col-lg-2 control-label" for="quantity">Quantity</label>
-								<div class="col-lg-10">
-									<input class="form-control" id="quantity" type="text"
-										placeholder="Quantity">
-								</div>
-								<label class="col-lg-2 control-label" for="price">Price</label>
-								<div class="col-lg-10">
-									<input class="form-control" id="price" type="text"
-										placeholder="Price">
-								</div>
+
 								<label class="col-lg-2 control-label" for="vendor">Vendor</label>
 								<div class="col-lg-10">
 									<select class="form-control" id="vendor"
-										ng-model="$scope.selectedVendor"
+										ng-model="selectedVendor"
 										ng-options="v as v.name for v in vendors"></select>
 								</div>
 
+								<table class="table table-striped table-hover ">
+									<thead>
+										<tr>
+											<th>Material</th>
+											<th>Type</th>
+											<th>Color</th>
+											<th>Quantity</th>
+											<th>Price</th>
+											<th>Add Item</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><select class="form-control" id="material1"
+												placeholder="Material" ng-model="$scope.selectedMaterial"
+												ng-options="m as m.name for m in materials"></select></td>
+											<td><input class="form-control" id="typematerial1"
+												type="text" placeholder="Type"></td>
+											<td><input class="form-control" id="color1" type="text"
+												placeholder="Color"></td>
+											<td><input class="form-control" id="quantity1"
+												type="text" placeholder="Quantity"></td>
+											<td><input class="form-control" id="price1" type="text"
+												placeholder="Price"></td>
+											<td>
+												<button type="button" onclick="addrow()">Add item</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 							<div class="col-lg-10 col-lg-offset-2">
 								<button class="btn btn-default" type="button">Cancel</button>
-								<button class="btn btn-primary" type="button">Submit</button>
+								<button class="btn btn-primary" type="button" ng-click="submit()">Submit</button>
 							</div>
 						</fieldset>
 					</form>
@@ -92,9 +98,10 @@
 		</div>
 		<div class="row">
 			<div ng-repeat="delivery in deliveries">
-				<h2 class="text-center">DELIVERY {{ $index + 1 }} </h2>
+				<h2 class="text-center">DELIVERY {{ $index + 1 }}</h2>
 				<h3 class="text-center">Vendor: {{ delivery.vendor }}</h3>
-				<h3 class="text-center">Date of delivery: {{ delivery.deliveryDate }}</h3>
+				<h3 class="text-center">Date of delivery: {{
+					delivery.deliveryDate }}</h3>
 
 				<table class="table table-striped table-hover ">
 					<thead>
@@ -125,7 +132,8 @@
 
 					</tbody>
 				</table>
-				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+				<hr
+					style="width: 100%; color: black; height: 1px; background-color: black;" />
 			</div>
 		</div>
 		<script src="./js/jquery-1.10.2.min.js"></script>
@@ -135,6 +143,32 @@
 		<script src="./js/app.js"></script>
 		<script src="./js/services.js"></script>
 		<script src="./js/deliveriesController.js"></script>
+		<script>
+			function addrow() {
+				var container = $('#newdelivery');
+			    var count = container.find('tr').length;
+			    var newRowString = generateRow(count); 
+			    var newRow = $(newRowString);
+			    $(container.find('tr')[1]).parent().prepend(newRow);
+			    var $options = $("#material1 > option").clone();
+			    $('#material' + count).append($options);
+			}
+			
+			function generateRow(count) {
+				var result = '';
+				result += '<tr><td><select class="form-control" id="material' + count + '"placeholder="Material" ';
+				result += 'ng-options="m as m.name for m in materials"></select></td>'
+				result += '<td><input class="form-control" id="typematerial' + count + '" ';
+				result += 'type="text" placeholder="Type"></td>';
+				result += '<td><input class="form-control" type="text" id="color' + count + '" ';
+				result += 'placeholder="Color"></td>';
+				result += '<td><input class="form-control" id="quantity' + count + '" ';
+				result += 'type="text" placeholder="Quantity"></td>';
+				result += '<td><input class="form-control" type="text" id="price' + count + '" ';
+				result += 'placeholder="Price"></td>';
+				return result;
+			}
+		</script>
 	</div>
 </body>
 </html>

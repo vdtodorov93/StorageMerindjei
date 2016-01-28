@@ -30,11 +30,13 @@ public class DeliveryMediator {
 	
 	@Transactional
 	public Delivery addDelivery(Delivery delivery) {
+		delivery = deliveryRepository.save(delivery);
+		
 		for(DeliveryEntity entity: delivery.getDeliveryEntities()) {
 			materialMediator.addQuantity(entity.getMaterial(), entity.getQuantity());
 		}
 		
-		return deliveryRepository.save(delivery);
+		return delivery;
 	}
 	
 	public Iterable<Delivery> findAllDeliveries() {

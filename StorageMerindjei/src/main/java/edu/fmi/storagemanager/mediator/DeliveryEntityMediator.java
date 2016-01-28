@@ -29,7 +29,9 @@ public class DeliveryEntityMediator {
 		result.setSize(dto.getSize());
 		result.setSizeMetric(dto.getSizeMetric());
 		result.setType(dto.getType());
-		result.setMaterial(materialRepository.findByName(dto.getMaterial()));
+		//result.setMaterial(materialRepository.findByName(dto.getMaterial()));
+		Long id = Long.parseLong(dto.getMaterial());
+		result.setMaterial(materialRepository.findOne(id));
 		result.setQuantity(dto.getQuantity());
 		return result;
 	}
