@@ -1,4 +1,4 @@
-package edu.fmi.storagemanager.controller;
+package edu.fmi.storagemanager.controller.rest;
 
 import java.util.List;
 

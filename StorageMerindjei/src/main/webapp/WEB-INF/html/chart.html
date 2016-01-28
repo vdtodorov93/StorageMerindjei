@@ -1,0 +1,40 @@
+<html>
+  <head>
+  <div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Material Price'],
+          ['January',  1000],
+          ['February',  117],
+          ['March',  660],
+          ['April',  1030],
+          ['May', 2321],
+          ['June', 2322],
+          ['July', 5454],
+          ['August', 9876],
+          ['September', 1345],
+          ['October', 4334],
+          ['November', 5555],
+          ['December', 3333]
+        ]);
+
+        var options = {
+          title: 'Storage Budget for Last Year',
+          hAxis: {title: 'Month',  titleTextStyle: {color: '#335'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    </div>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
