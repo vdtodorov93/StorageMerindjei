@@ -1,6 +1,7 @@
 app.controller('DeliveriesController', function DeliveriesController($scope, $http, services) {
 	getMaterials();
 	getVendors();
+	getDeliveries();
 
 	$scope.submit = function() {
 //		var materialName = $scope.materialName;
@@ -26,6 +27,15 @@ app.controller('DeliveriesController', function DeliveriesController($scope, $ht
 		services.getVendors()
 		.then(function(response) {
 			$scope.vendors = response;
+		}, function(err) {
+			console.log(err);
+		})
+	}
+	
+	function getDeliveries() {
+		services.getDeliveries()
+		.then(function(response) {
+			$scope.deliveries = response;
 		}, function(err) {
 			console.log(err);
 		})

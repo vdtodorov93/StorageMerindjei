@@ -1,28 +1,31 @@
-	<html ng-app="app">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Storage Меринджей</title>
-		<link rel="stylesheet" href="./css/bootstrap.css" media="screen">
-	</head>
-	<body>
+
+<html ng-app="app">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Storage Меринджей</title>
+<link rel="stylesheet" href="./css/bootstrap.css" media="screen">
+</head>
+<body>
 	<div class="container" ng-controller="DeliveriesController">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+					<button class="navbar-toggle collapsed" type="button"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="/">Storage Меринджей</a>
 				</div>
 
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="materials">Materials</a></li>
 						<li class="active"><a href="deliveries">Deliveries</a></li>
-						<li class="active"><a href="vendors">Vendors <span class="sr-only">(current)</span></a></li>
+						<li class="active"><a href="vendors">Vendors <span
+								class="sr-only">(current)</span></a></li>
 					</ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
@@ -37,59 +40,101 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container">
+		<div class="row">
 			<div class="column">
-
 				<div class="col-sm-5">
-
 					<form class="form-horizontal">
 						<fieldset>
-						<legend>New Delivery</legend>
+							<legend>New Delivery</legend>
 							<div class="form-group">
 								<label class="col-lg-2 control-label" for="material">Material</label>
 								<div class="col-lg-10">
-									<select class="form-control" id="material" placeholder="Material" 
-									ng-model="$scope.selectedMaterial" ng-options="m as m.name for m in materials"/>
+									<select class="form-control" id="material"
+										placeholder="Material" ng-model="$scope.selectedMaterial"
+										ng-options="m as m.name for m in materials"></select>
 								</div>
-								<label class="col-lg-2 control-label" for="type">Type</label>
+								<label class="col-lg-2 control-label" for="typematerial">Type</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="type" type="text" placeholder="Type">
+									<input class="form-control" id="typematerial" type="text"
+										placeholder="Type">
 								</div>
 								<label class="col-lg-2 control-label" for="color">Color</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="color" type="text" placeholder="Color">
+									<input class="form-control" id="color" type="text"
+										placeholder="Color">
 								</div>
 								<label class="col-lg-2 control-label" for="quantity">Quantity</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="quantity" type="text" placeholder="Quantity">
+									<input class="form-control" id="quantity" type="text"
+										placeholder="Quantity">
 								</div>
 								<label class="col-lg-2 control-label" for="price">Price</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="price" type="text" placeholder="Price">
+									<input class="form-control" id="price" type="text"
+										placeholder="Price">
 								</div>
 								<label class="col-lg-2 control-label" for="vendor">Vendor</label>
 								<div class="col-lg-10">
-									<select class="form-control" id="vendor" 
-									ng-model="$scope.selectedVendor" ng-options="v as v.name for v in vendors"/>
+									<select class="form-control" id="vendor"
+										ng-model="$scope.selectedVendor"
+										ng-options="v as v.name for v in vendors"></select>
 								</div>
+
 							</div>
-							<div class="form-group">
-								<div class="col-lg-10 col-lg-offset-2">
-									<button class="btn btn-default" type="reset">Cancel</button>
-									<button class="btn btn-primary" type="submit">Submit</button>
-								</div>
+							<div class="col-lg-10 col-lg-offset-2">
+								<button class="btn btn-default" type="button">Cancel</button>
+								<button class="btn btn-primary" type="button">Submit</button>
 							</div>
 						</fieldset>
 					</form>
 				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div ng-repeat="delivery in deliveries">
+				<h2 class="text-center">DELIVERY {{ $index + 1 }} </h2>
+				<h3 class="text-center">Vendor: {{ delivery.vendor }}</h3>
+				<h3 class="text-center">Date of delivery: {{ delivery.deliveryDate }}</h3>
+
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Material</th>
+							<th>Quantity</th>
+							<th>Material Form</th>
+							<th>Type</th>
+							<th>Color</th>
+							<th>Price</th>
+							<th>Size</th>
+							<th>SizeMetric</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="deliveryEntity in delivery.deliveryEntities">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ deliveryEntity.material }}</td>
+							<td>{{ deliveryEntity.quantity }}</td>
+							<td>{{ deliveryEntity.materialForm }}</td>
+							<td>{{ deliveryEntity.type }}</td>
+							<td>{{ deliveryEntity.color }}</td>
+							<td>{{ deliveryEntity.price }}</td>
+							<td>{{ deliveryEntity.size }}</td>
+							<td>{{ deliveryEntity.sizeMetric }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+			</div>
+		</div>
 		<script src="./js/jquery-1.10.2.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.8/angular.js"></script>
-			<script src="./js/app.js"></script>
-			<script src="./js/services.js"></script>
+		<script src="./js/app.js"></script>
+		<script src="./js/services.js"></script>
 		<script src="./js/deliveriesController.js"></script>
-		</div>
-	</body>
-	</html>
+	</div>
+</body>
+</html>
