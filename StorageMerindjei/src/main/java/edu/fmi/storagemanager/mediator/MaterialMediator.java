@@ -1,27 +1,18 @@
 package edu.fmi.storagemanager.mediator;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.fmi.storagemanager.db.dao.MaterialRepository;
-import edu.fmi.storagemanager.db.dao.UsedMaterialRepository;
 import edu.fmi.storagemanager.db.model.Material;
 
 @Service
 public class MaterialMediator {
 	
 	@Autowired
-	private DeliveryEntityMediator deliveryEntityMediator;
-	
-	@Autowired
 	private MaterialRepository materialRepository;
-
-	@Autowired
-	private UsedMaterialRepository usedMaterialRepository;
-	
-	public int currentQuantityOfMaterial(String material) {
-		return deliveryEntityMediator.getTotalAmountOfDeliveredMaterialByName(material) - usedMaterialRepository.usedAmountByName(material);
-	}
 	
 	public Material addMaterial(Material material) {
 		return materialRepository.save(material);
@@ -37,5 +28,11 @@ public class MaterialMediator {
 	
 	public Iterable<Material> findAllMaterials() {
 		return materialRepository.findAll();
+	}
+	
+	public void addQuantity(Material material, BigDecimal quantity) {
+		material = materialRepository.findByName(material.getName());
+		material.setQuantity(material.getQuantity().add(quantity));
+		materialRepository.save(material);
 	}
 }

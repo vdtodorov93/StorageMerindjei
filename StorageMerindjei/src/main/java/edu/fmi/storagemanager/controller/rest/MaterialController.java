@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.fmi.storagemanager.controller.api.model.MaterialQuantityDto;
 import edu.fmi.storagemanager.db.model.Material;
 import edu.fmi.storagemanager.mediator.MaterialMediator;
+import edu.fmi.storagemanager.mediator.UsedMaterialMediator;
 import edu.fmi.storagemanager.util.CommonUtil;
 
 @RestController
@@ -20,6 +22,9 @@ public class MaterialController {
 
 	@Autowired
 	private MaterialMediator materialMediator;
+
+	@Autowired
+	private UsedMaterialMediator usedMaterialMediator;
 
 	@RequestMapping(value = "/api/materials", method = RequestMethod.GET)
 	public List<Material> getMaterials() {
@@ -38,5 +43,19 @@ public class MaterialController {
 		System.out.println(material);
 		material = materialMediator.addMaterial(material);
 		return material;
+	}
+
+	@RequestMapping(value = "/api/materials/quantity/add", method = RequestMethod.POST)
+	public ResponseEntity<Material> addMaterialQuantity(@RequestBody MaterialQuantityDto quantityDto) {
+		Material material = materialMediator.findByName(quantityDto.getMaterial());
+		materialMediator.addQuantity(material, quantityDto.getQuantity());
+		return new ResponseEntity<Material>(material, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/materials/quantity/use", method = RequestMethod.POST)
+	public ResponseEntity<Material> useMaterial(@RequestBody MaterialQuantityDto quantityDto) {
+		Material material = materialMediator.findByName(quantityDto.getMaterial());
+		usedMaterialMediator.useMaterial(material, quantityDto.getQuantity());
+		return new ResponseEntity<Material>(material, HttpStatus.OK);
 	}
 }

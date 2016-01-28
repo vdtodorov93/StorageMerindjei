@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.fmi.storagemanager.controller.api.model.DeliveryDto;
 import edu.fmi.storagemanager.controller.api.model.DeliveryEntityDto;
-import edu.fmi.storagemanager.controller.api.model.VendorDto;
 import edu.fmi.storagemanager.db.dao.DeliveryRepository;
 import edu.fmi.storagemanager.db.model.Delivery;
 import edu.fmi.storagemanager.db.model.DeliveryEntity;
-import edu.fmi.storagemanager.db.model.Vendor;
 
 @Service
 public class DeliveryMediator {
@@ -24,9 +23,17 @@ public class DeliveryMediator {
 	private DeliveryEntityMediator deliveryEntityMediator;
 	
 	@Autowired
+	private MaterialMediator materialMediator;
+	
+	@Autowired
 	private VendorMediator vendorMediator;
 	
+	@Transactional
 	public Delivery addDelivery(Delivery delivery) {
+		for(DeliveryEntity entity: delivery.getDeliveryEntities()) {
+			materialMediator.addQuantity(entity.getMaterial(), entity.getQuantity());
+		}
+		
 		return deliveryRepository.save(delivery);
 	}
 	

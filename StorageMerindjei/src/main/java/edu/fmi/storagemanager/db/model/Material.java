@@ -1,4 +1,6 @@
 package edu.fmi.storagemanager.db.model;
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,9 @@ public class Material {
 	
 	@Column(name="name", nullable = false, length = 50)
 	private String name;
+	
+	@Column(name="quantity")
+	private BigDecimal quantity;
 	
 	public Material() {}
 
@@ -40,8 +45,16 @@ public class Material {
 		return name;
 	}
 
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
 	public String toString() {
-		return "Material [id=" + id + ", name=" + name + "]";
+		return "Material [id=" + id + ", name=" + name + ", quantity=" + quantity + "]";
 	}
 }
